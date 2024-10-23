@@ -1,101 +1,250 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import {
+  BadgeCheck,
+  Bell,
+  BookmarkMinus,
+  Calendar,
+  ChartNoAxesColumn,
+  ChevronDown,
+  CreditCard,
+  House,
+  Kanban,
+  LifeBuoy,
+  LogOut,
+  Mail,
+  MessagesSquare,
+  Settings,
+  Sparkles,
+  User,
+} from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Separator } from "@/components/ui/separator";
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarGroup,
+  SidebarHeader,
+  SidebarInset,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarProvider,
+  SidebarRail,
+  SidebarTrigger,
+} from "@/components/ui/sidebar";
+import { cn } from "@/lib/utils";
+import { Search } from "@/components/ui/search";
+import CalendarComponent from "@/components/calendar-card";
+
+const data = {
+  user: {
+    name: "Jhone Doe",
+    avatar: "/images/avatar.png",
+  },
+  navMain: [
+    {
+      title: "Home",
+      url: "#",
+      icon: House,
+    },
+    {
+      title: "Dashboard",
+      url: "#",
+      icon: ChartNoAxesColumn,
+    },
+    {
+      title: "Inbox",
+      url: "#",
+      icon: Mail,
+    },
+    {
+      title: "Products",
+      url: "#",
+      icon: Kanban,
+    },
+    {
+      title: "Invoices",
+      url: "#",
+      icon: BookmarkMinus,
+    },
+    {
+      title: "Customers",
+      url: "#",
+      icon: User,
+    },
+    {
+      title: "Chat Room",
+      url: "#",
+      icon: MessagesSquare,
+    },
+    {
+      title: "Calendar",
+      url: "#",
+      icon: Calendar,
+      isSelect: true,
+    },
+    {
+      title: "Help Center",
+      url: "#",
+      icon: LifeBuoy,
+    },
+    {
+      title: "Settings",
+      url: "#",
+      icon: Settings,
+    },
+  ],
+};
+
+export default function Page() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <SidebarProvider>
+      <Sidebar collapsible="icon" className="bg">
+        <SidebarContent className="bg-[#3D3B53] text-white">
+          <SidebarGroup className="p-0">
+            <SidebarHeader className="h-[70px] bg-[#43425D] p-0 pl-3">
+              <div className="my-auto ml-4">
+                <h1 className="text-base font-bold text-white group-data-[collapsible=icon]:hidden">
+                  IMPEKABLE
+                </h1>
+              </div>
+            </SidebarHeader>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+            <SidebarMenu className="mt-2">
+              {data.navMain.map((item) => (
+                <SidebarMenuItem key={item.title}>
+                  <SidebarMenuButton
+                    tooltip={item.title}
+                    className={cn(
+                      "hover:bg-[#43425D] hover:text-white rounded-none w-full p-7 active:bg-white/5 active:text-white",
+                      item.isSelect &&
+                        "border-l-[4px] border-[#A3A0FB] bg-[#43425D] hover:none active:bg-[#43425D] active:text-white"
+                    )}
+                  >
+                    {item.icon && (
+                      <item.icon
+                        strokeWidth={2.5}
+                        className=" text-[#A5A4BF]"
+                      />
+                    )}
+                    <span>{item.title}</span>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroup>
+        </SidebarContent>
+        <SidebarRail />
+      </Sidebar>
+      <SidebarInset>
+        <header className="flex h-[69px] shadow-lg items-center shrink-0 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
+          <div className="flex gap-2 px-2 justify-between w-full  bg-white">
+            <div className="flex items-center">
+              <SidebarTrigger className="-ml-1 text-gray-400 hover:text-gray-600" />
+              <Separator orientation="vertical" className="mr-2 h-4" />
+              <Search
+                className="h-min  border-none w-80 text-gray-400 "
+                placeholder="Search transactions, invoices or help"
+              ></Search>
+            </div>
+
+            <div className="flex items-center">
+              <Separator orientation="vertical" className="mr-2 h-6" />
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild className="w-auto text-gray-700">
+                  <SidebarMenuButton
+                    size="lg"
+                    className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+                  >
+                    <div className="grid flex-1 text-left text-sm leading-tight">
+                      <span className="truncate font-medium text-gray-700">
+                        {data.user.name}
+                      </span>
+                    </div>
+
+                    <ChevronDown className="ml-auto size-4" strokeWidth={2} />
+                    <Avatar className="h-8 w-8 rounded-lg">
+                      <AvatarImage
+                        src={data.user.avatar}
+                        alt={data.user.name}
+                      />
+                      <AvatarFallback className="rounded-lg">JD</AvatarFallback>
+                    </Avatar>
+                  </SidebarMenuButton>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent
+                  className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
+                  side="bottom"
+                  align="end"
+                  sideOffset={4}
+                >
+                  <DropdownMenuLabel className="p-0 font-normal">
+                    <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
+                      <Avatar className="h-8 w-8 rounded-lg">
+                        <AvatarImage
+                          src={data.user.avatar}
+                          alt={data.user.name}
+                        />
+                        <AvatarFallback className="rounded-lg">
+                          JD
+                        </AvatarFallback>
+                      </Avatar>
+                      <div className="grid flex-1 text-left text-sm leading-tight">
+                        <span className="truncate font-semibold">
+                          {data.user.name}
+                        </span>
+                      </div>
+                    </div>
+                  </DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuGroup>
+                    <DropdownMenuItem>
+                      <Sparkles />
+                      Upgrade to Pro
+                    </DropdownMenuItem>
+                  </DropdownMenuGroup>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuGroup>
+                    <DropdownMenuItem>
+                      <BadgeCheck />
+                      Account
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <CreditCard />
+                      Billing
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Bell />
+                      Notifications
+                    </DropdownMenuItem>
+                  </DropdownMenuGroup>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem>
+                    <LogOut />
+                    Log out
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+          </div>
+        </header>
+        <div className="flex flex-1 flex-col gap-4 p-4 pt-8 pl-20 bg-[#F0F0F7]">
+          <h2 className="text-[#43425D] text-3xl">Calendar</h2>
+          <CalendarComponent />
+
+          <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" />
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+      </SidebarInset>
+    </SidebarProvider>
   );
 }
