@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import {
   format,
   addDays,
@@ -89,11 +89,19 @@ const CalendarComponent = () => {
             </DialogTrigger>
             <DialogContent className="pt-12">
               <form
-                onSubmit={(e) => {
+                onSubmit={(e: FormEvent<HTMLFormElement>) => {
                   e.preventDefault();
-                  const title = e.target.title.value;
+
+                  const form = e.target as HTMLFormElement;
+                  const titleInput = form.elements.namedItem(
+                    "title"
+                  ) as HTMLInputElement;
+
+                  const title = titleInput.value;
+
                   handleAddEvent(title);
-                  e.target.reset();
+
+                  form.reset();
                 }}
               >
                 <Input
